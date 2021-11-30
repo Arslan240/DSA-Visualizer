@@ -39,8 +39,7 @@ int main()
     camera.fovy = 60.0f;
     camera.projection = CAMERA_PERSPECTIVE;
     
-    
-    SetCameraMode(camera, CAMERA_ORBITAL);
+    SetCameraMode(camera, CAMERA_PERSPECTIVE);
 
     Vector3 cubePosition = { 3 };
 
@@ -61,17 +60,10 @@ int main()
 
             ClearBackground(BLACK);
 
-            // BeginMode3D(camera);
-
-                // DrawCube(cubePosition, 2.0f, 2.0f, 2.0f, RED);
-                // DrawCubeWires(cubePosition, 2.0f, 2.0f, 2.0f, MAROON);
-                // DrawGrid(10, 1.0f);
-
-            // EndMode3D();
             int x = 30;
             int width = 80;
-            int height = 30;
-            int space_btw_2_nodes = 10;
+            int height = 60;
+            int space_btw_2_nodes = 20;
             int increment = width + space_btw_2_nodes;
             int posY_rectantgle = 80;
             int total_nodes = 5;
@@ -80,34 +72,29 @@ int main()
             {
                 DrawRectangle(x,posY_rectantgle,width,height,WHITE);
 
-                // Logic to draw line, the condition checks if it is last node or note.
-                if(i != total_nodes - 1){ //TODO make it dynamic
-                    int start_positionX = x+width;
-                    int end_positionX = x+increment;
-                    int start_posY = posY_rectantgle + (height/2);
-                    int end_posY = posY_rectantgle + (height/2);
-                    DrawLine(start_positionX,start_posY,end_positionX,end_posY,GREEN);
-                }
-
-                // // Logic to draw line with rectangle, because we can't change thickness of line drawn with drawline() method.
-
-                // if(i != total_nodes - 1){
+                // Logic to draw line with drawLine() function, the condition checks if it is last node or note.
+                // if(i != total_nodes - 1){ //TODO make it dynamic
                 //     int start_positionX = x+width;
                 //     int end_positionX = x+increment;
-                //     int rect_line_width = end_positionX - start_positionX; //this will calculate the width of the line btw two rectangles.
-                //     int rect_line_height = height / 4; //the height of line drawn will be one fourth of the original rectangle. 
                 //     int start_posY = posY_rectantgle + (height/2);
                 //     int end_posY = posY_rectantgle + (height/2);
-                //     // DrawLine(start_positionX,start_posY,end_positionX,end_posY,GREEN);
-                    
+                //     DrawLine(start_positionX,start_posY,end_positionX,end_posY,GREEN);
                 // }
+
+                // Logic to draw line with rectangle, because we can't change thickness of line drawn with drawline() method.
+
+                if(i != total_nodes - 1){
+                    int start_positionX = x+width;
+                    int end_positionX = x+increment;
+                    int rect_line_width = end_positionX - start_positionX; //this will calculate the width of the line btw two rectangles.
+                    int rect_line_height = height / 4; //the height of line drawn will be one fourth of the original rectangle. 
+                    int rect_line_posX = x + width;
+                    int rect_line_posY = posY_rectantgle + (height/4.0f) + (height/8.0f); // Float in denominator makes the calculation almost accurate. But function doesn't accept float, so have to lose some accuracy. This will put the line at the dead middle.    
+                    DrawRectangle(rect_line_posX,rect_line_posY,rect_line_width,rect_line_height,GREEN);
+                }
 
                 x += increment;
             }
-            
-            // DrawRectangle(30,80,50,30,WHITE);
-            // DrawCircleLines(60,100,30.0f,RED);
-            // DrawCircle(6, 6, 50.f, GREEN);
 
 
             DrawText("This is a Linked List example", 10, 40, 20, DARKGRAY);
